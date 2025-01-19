@@ -10,23 +10,9 @@ import (
 const filename = "tasks.json"
 
 func main() {
-	args := len(os.Args)
-	if args < 2 {
-		fmt.Println("Usage: task-cli <command> <Your Task/ Task id>")
+	command, task, ok := argParser(os.Args)
+	if !ok {
 		return
-	}
-	command := strings.ToLower(os.Args[1])
-	task := ""
-
-	if args == 2 {
-		if command == "list" {
-			task = "all"
-		} else {
-			fmt.Println("Usage: task-cli <command> <Your Task/ Task id>")
-			return
-		}
-	} else {
-		task = strings.Join(os.Args[2:], " ")
 	}
 
 	// Open the file in read-write mode and create it if it doesn't exist
@@ -49,35 +35,32 @@ func main() {
 
 	switch command {
 	case "add":
-		task = strings.TrimSpace(task)
-		add(task, &tasks)
+		add(strings.Join(task, " "), &tasks)
 
 	case "update":
-		split := strings.Split(task, " ")
-		if num, ok := is_id(split[0]); !ok {
+		if num, ok := is_id(task[0]); !ok {
 			return
 		} else {
-			task = strings.Join(split[1:], " ")
-			update(num, task, &tasks)
+			update(num, strings.Join(task[1:], " "), &tasks)
 		}
 
 	case "delete":
-		if num, ok := is_id(task); !ok {
+		if num, ok := is_id(task[0]); !ok {
 			return
 		} else {
 			delete(num, &tasks)
 		}
 
-	case "done", "skip", "in progress", "pending":
-		if num, ok := is_id(task); !ok {
+	case "done", "skipped", "in-progress", "pending":
+		if num, ok := is_id(task[0]); !ok {
 			return
 		} else {
 			mark(num, &tasks, command)
 		}
 
 	case "list":
-		list(strings.ToLower(task), &tasks)
-		// here task is Done, Pending, In Progress, Skipped or All
+		list(strings.ToLower(task[0]), &tasks)
+		// here task is Done, Pending, In-Progress, Skipped or All
 
 	default:
 		fmt.Println("Invalid Command!!")

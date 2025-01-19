@@ -24,6 +24,10 @@ func is_id(s string) (int, bool) {
 }
 
 func add(Description string, tasks_ptr *[]Task) {
+	if Description == "" {
+		fmt.Println("Invalid Task!!")
+		return
+	}
 	new_Id := 0
 	for _, task := range *tasks_ptr {
 		if task.Description == Description {
@@ -86,9 +90,9 @@ func mark(id int, tasks_ptr *[]Task, Status string) {
 		task.Status = 0
 	case "done":
 		task.Status = 1
-	case "skip", "skipped":
+	case "skipped":
 		task.Status = 3
-	case "in progress":
+	case "in-progress":
 		task.Status = 2
 	}
 	task.UpdateAt = time.Now()
@@ -108,9 +112,9 @@ func list(task_type string, tasks_ptr *[]Task) {
 		status = 1
 	case "pending":
 		status = 0
-	case "inprogress", "in progress", "in-progress":
+	case "in-progress":
 		status = 2
-	case "skipped", "skip":
+	case "skipped":
 		status = 3
 	default:
 		fmt.Println("Invalid Task Status")

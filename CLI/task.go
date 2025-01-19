@@ -36,3 +36,14 @@ func (t Task) String() string {
 		t.CreatedAt.Format("15:04:05 02/01/2006"),
 		t.UpdateAt.Format("15:04:05 02/01/2006"))
 }
+
+func argParser(args []string) (string, []string, bool) {
+	if len(args) < 2 {
+		fmt.Println("Usage: task <command> <task>")
+		return "", nil, false
+	}
+	if len(args) < 3 {
+		return args[1], []string{"all"}, true
+	}
+	return args[1], args[2:], true
+}
