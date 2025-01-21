@@ -38,7 +38,7 @@ A lightweight command-line interface (CLI) application to manage your tasks effi
 
 3. Build the CLI application:
    ```bash
-   go build -o task-cli
+   go build -o task-cli ./CLI
    ```
 
 ---
