@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -10,6 +10,9 @@ import (
 const filename = "tasks.json"
 
 func main() {
+	log.SetOutput(os.Stdout)
+	log.SetFlags(0)
+
 	command, task, ok := argParser(os.Args)
 	if !ok {
 		return
@@ -18,7 +21,7 @@ func main() {
 	// Open the file in read-write mode and create it if it doesn't exist
 	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0755) // this number is file permission
 	if err != nil {
-		fmt.Println("Error Opening File:", err)
+		log.Println("Error Opening File:", err)
 		return
 	}
 	defer file.Close()
@@ -26,7 +29,7 @@ func main() {
 	// Read the file and turn the data to []byte
 	data, err := os.ReadFile(filename)
 	if err != nil {
-		fmt.Println("Error reading file:", err)
+		log.Println("Error reading file:", err)
 		return
 	}
 
@@ -63,20 +66,20 @@ func main() {
 		// here task is Done, Pending, In-Progress, Skipped or All
 
 	default:
-		fmt.Println("Invalid Command!!")
+		log.Println("Invalid Command!!")
 	}
 
 	// Convert the data back to the json
 	data, err = json.MarshalIndent(tasks, "", "  ")
 	if err != nil {
-		fmt.Println("Error converting data to json:", err)
+		log.Println("Error converting data to json:", err)
 		return
 	}
 
 	// Save the data to the file
 	err = os.WriteFile(filename, data, 0644)
 	if err != nil {
-		fmt.Println("Error writing to file:", err)
+		log.Println("Error writing to file:", err)
 		return
 	}
 }

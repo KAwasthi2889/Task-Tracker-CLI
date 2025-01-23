@@ -1,10 +1,16 @@
 package main
 
 import (
+	"bytes"
+	"log"
 	"testing"
 )
 
+var buf bytes.Buffer
+
 func Test_argParser(t *testing.T) {
+	log.SetOutput(&buf)
+
 	arguments := [][]string{
 		{"main.go", "add", "task1"},
 		{"main.go", "delete", "1"},
@@ -48,6 +54,8 @@ func Test_argParser(t *testing.T) {
 }
 
 func Test_OutOfBounds(t *testing.T) {
+	log.SetOutput(&buf)
+
 	arguments := [][]int{
 		{5, 4},
 		{0, 1},
@@ -64,6 +72,8 @@ func Test_OutOfBounds(t *testing.T) {
 }
 
 func Test_is_id(t *testing.T) {
+	log.SetOutput(&buf)
+
 	arguments := []string{"5", "0", "a"}
 
 	expected := []bool{true, true, false}
@@ -77,6 +87,8 @@ func Test_is_id(t *testing.T) {
 }
 
 func Test_add(t *testing.T) {
+	log.SetOutput(&buf)
+
 	arguments := []string{"task1", "", "task 1 and 2"}
 
 	var tasks []Task
@@ -104,6 +116,8 @@ func Test_add(t *testing.T) {
 }
 
 func Test_delete(t *testing.T) {
+	log.SetOutput(&buf)
+
 	tasks := []Task{
 		{Id: 1, Description: "task1"},
 		{Id: 2, Description: "task2"},
@@ -125,6 +139,8 @@ func Test_delete(t *testing.T) {
 }
 
 func Test_update(t *testing.T) {
+	log.SetOutput(&buf)
+
 	tasks := []Task{
 		{Id: 1, Description: "task1"},
 		{Id: 2, Description: "task2"},
@@ -151,6 +167,8 @@ func Test_update(t *testing.T) {
 }
 
 func Test_mark(t *testing.T) {
+	log.SetOutput(&buf)
+
 	tasks := []Task{
 		{Id: 1, Description: "task1", Status: 0},
 		{Id: 2, Description: "task2", Status: 0},

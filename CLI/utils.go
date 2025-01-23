@@ -1,14 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"strconv"
 	"time"
 )
 
 func argParser(args []string) (string, []string, bool) {
 	if len(args) < 2 {
-		fmt.Println("Usage: task <command> <task>")
+		log.Println("Usage: task <command> <task>")
 		return "", nil, false
 	}
 	if len(args) < 3 {
@@ -19,7 +19,7 @@ func argParser(args []string) (string, []string, bool) {
 
 func OutOfBounds(id int, length int) bool {
 	if id < 1 || id > length {
-		fmt.Println("Invalid Task ID")
+		log.Println("Invalid Task ID")
 		return true
 	}
 	return false
@@ -28,7 +28,7 @@ func OutOfBounds(id int, length int) bool {
 func is_id(s string) (int, bool) {
 	num, err := strconv.Atoi(s)
 	if err != nil {
-		fmt.Println("InvalId Task number!!")
+		log.Println("InvalId Task number!!")
 		return -1, false
 	}
 	return num, true
@@ -36,13 +36,13 @@ func is_id(s string) (int, bool) {
 
 func add(Description string, tasks_ptr *[]Task) {
 	if Description == "" {
-		fmt.Println("Invalid Task!!")
+		log.Println("Invalid Task!!")
 		return
 	}
 	new_Id := 0
 	for _, task := range *tasks_ptr {
 		if task.Description == Description {
-			fmt.Println("Following Task already exists:\n", task)
+			log.Println("Following Task already exists:\n", task)
 			return
 		}
 		new_Id = task.Id
@@ -55,7 +55,7 @@ func add(Description string, tasks_ptr *[]Task) {
 		UpdateAt:    time.Now(),
 	}
 	*tasks_ptr = append(*tasks_ptr, task)
-	fmt.Println("Following task added:\n", task)
+	log.Println("Following task added:\n", task)
 }
 
 func delete(id int, tasks_ptr *[]Task) {
@@ -69,7 +69,7 @@ func delete(id int, tasks_ptr *[]Task) {
 		(*tasks_ptr)[i].Id--
 	}
 	*tasks_ptr = (*tasks_ptr)[:len(*tasks_ptr)-1]
-	fmt.Println("Following task deleted:\n", task)
+	log.Println("Following task deleted:\n", task)
 }
 
 func update(id int, description string, tasks_ptr *[]Task) {
@@ -79,7 +79,7 @@ func update(id int, description string, tasks_ptr *[]Task) {
 
 	for _, task := range *tasks_ptr {
 		if task.Description == description {
-			fmt.Println("Following Task already exists:\n", task)
+			log.Println("Following Task already exists:\n", task)
 			return
 		}
 	}
@@ -87,7 +87,7 @@ func update(id int, description string, tasks_ptr *[]Task) {
 	task := &(*tasks_ptr)[id-1]
 	task.Description = description
 	task.UpdateAt = time.Now()
-	fmt.Println("Following task updated:\n", *task)
+	log.Println("Following task updated:\n", *task)
 }
 
 func mark(id int, tasks_ptr *[]Task, Status string) {
@@ -107,13 +107,13 @@ func mark(id int, tasks_ptr *[]Task, Status string) {
 		task.Status = 2
 	}
 	task.UpdateAt = time.Now()
-	fmt.Println("Following task marked as", Status, ":\n", *task)
+	log.Println("Following task marked as", Status, ":\n", *task)
 }
 
 func list(task_type string, tasks_ptr *[]Task) {
 	if task_type == "all" {
 		for _, task := range *tasks_ptr {
-			fmt.Println(task)
+			log.Println(task)
 		}
 		return
 	}
@@ -128,12 +128,12 @@ func list(task_type string, tasks_ptr *[]Task) {
 	case "skipped":
 		status = 3
 	default:
-		fmt.Println("Invalid Task Status")
+		log.Println("Invalid Task Status")
 		return
 	}
 	for _, task := range *tasks_ptr {
 		if task.Status == status {
-			fmt.Println(task)
+			log.Println(task)
 		}
 	}
 }
