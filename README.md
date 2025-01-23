@@ -38,7 +38,7 @@ A lightweight command-line interface (CLI) application to manage your tasks effi
 
 3. Build the CLI application:
    ```bash
-   go build -o task-cli
+   go build -o task-cli ./CLI
    ```
 
 ---
@@ -138,4 +138,4 @@ Any contributions are welcome to improve functionality or add new features.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This [Task-Tracker-CLI](https://github.com/KAwasthi2889/Task-Tracker-CLI) [project](https://roadmap.sh/projects/task-tracker) is licensed under the [MIT License](LICENSE).
