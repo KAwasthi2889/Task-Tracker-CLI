@@ -138,4 +138,4 @@ Any contributions are welcome to improve functionality or add new features.
 
 ## License
 
-This [Task-Tracker-CLI](https://github.com/KAwasthi2889/Task-Tracker-CLI) [project](https://roadmap.sh/projects/task-tracker) is licensed under the [MIT License](LICENSE).
+This [Task-Tracker-CLI](https://github.com/KAwasthi2889/Task-Tracker-CLI) [project](https://roadmap.sh/projects/task-tracker) is licensed under the [MIT License](https://github.com/KAwasthi2889/Task-Tracker-CLI/blob/main/LICENCE).
