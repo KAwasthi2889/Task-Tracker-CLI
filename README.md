@@ -119,7 +119,7 @@ Tasks are stored in a `tasks.json` file in the current directory. Example struct
   },
   {
     "id": 2,
-    "description": "Another Task",
+    "description": "Example Task 2",
     "status": 1,
     "Creation Date": "2025-01-19T15:14:25.958703952+05:30",
     "Update Date": "2025-01-19T15:14:25.958704095+05:30"
